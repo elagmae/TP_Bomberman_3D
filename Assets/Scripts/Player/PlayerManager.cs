@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,12 @@ public class PlayerManager : MonoBehaviour
 
     public List<PlayerMain> PlayerMains { get; set; } = new();
 
+    [SerializeField]
+    private List<GameObject> _playerPositions = new();
+    [SerializeField]
+    private List<Color> _playerColors = new();
+
+    private PlayerMain _main;
     private PlayerInputManager _inputManager;
 
     private void Awake()
@@ -22,26 +29,31 @@ public class PlayerManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
 
+    private void Start()
+    {
         _inputManager = GetComponent<PlayerInputManager>();
         _inputManager.onPlayerJoined += Join;
     }
 
     private void Join(PlayerInput input)
     {
-        var playerMain = input.gameObject.GetComponent<PlayerMain>();
-        PlayerMains.Add(playerMain);
+        _main = input.gameObject.GetComponent<PlayerMain>();
+        PlayerMains.Add(_main);
 
-        if(playerMain == PlayerMains[0])
+        if(_main == PlayerMains[0])
         {
-            playerMain.Render.material.color = Color.red;
+            _main.Id = 0;
         }
 
         else
         {
-            playerMain.Render.material.color = Color.blue;
+            _main.Id = 1;
         }
 
+        input.gameObject.transform.position = _playerPositions[_main.Id].transform.position;
+        input.GetComponent<MeshRenderer>().material.color = _playerColors[_main.Id];
     }
 }
 
