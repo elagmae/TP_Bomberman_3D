@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,12 +6,20 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
+    [field: SerializeField]
+    public List<GameObject> PlayerUI = new();
     public List<PlayerMain> PlayerMains { get; set; } = new();
+    public List<List<GameObject>> InventoriesUI { get; set; } = new();
 
     [SerializeField]
     private List<GameObject> _playerPositions = new();
     [SerializeField]
     private List<Color> _playerColors = new();
+
+    [SerializeField]
+    private List<GameObject> _inventory_R;
+    [SerializeField]
+    private List<GameObject> _inventory_B;
 
     private PlayerMain _main;
     private PlayerInputManager _inputManager;
@@ -35,6 +42,10 @@ public class PlayerManager : MonoBehaviour
     {
         _inputManager = GetComponent<PlayerInputManager>();
         _inputManager.onPlayerJoined += Join;
+
+        InventoriesUI.Clear();
+        InventoriesUI.Add(_inventory_R);
+        InventoriesUI.Add(_inventory_B);
     }
 
     private void Join(PlayerInput input)
