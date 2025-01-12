@@ -40,12 +40,11 @@ public class PlayerInventoryBehaviour : MonoBehaviour
             var item = PlayerManager.Instance.InventoriesUI[id][i];
             if (item.activeInHierarchy)
             {
-                var bomb = BombInventory[BombInventory.Count - 1];
-                print(bomb);
+                var bomb = BombInventory[^1];
+                bomb.tag = "ActivatedBomb";
                 bomb.SetActive(true);
-                print(bomb.activeInHierarchy);
                 bomb.transform.position = this.transform.position;
-
+                BombInventory.Remove(bomb);
                 item.SetActive(false);
 
                 //Lyta remet dans la pool stp.

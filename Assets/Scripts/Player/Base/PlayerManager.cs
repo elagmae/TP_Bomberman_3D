@@ -1,20 +1,26 @@
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
     [field: SerializeField]
-    public List<GameObject> PlayerUI = new();
+    public CinemachineImpulseSource ImpulseSource { get; set; }
+    [field: SerializeField]
+    public List<Slider> PlayerHealthSliders { get; set; } = new();
+    [field: SerializeField]
+    public Image EndGamePanel { get; set; }
+    [field: SerializeField]
+    public List<Color> PlayerColors { get; set; } = new();
     public List<PlayerMain> PlayerMains { get; set; } = new();
     public List<List<GameObject>> InventoriesUI { get; set; } = new();
 
     [SerializeField]
     private List<GameObject> _playerPositions = new();
-    [SerializeField]
-    private List<Color> _playerColors = new();
 
     [SerializeField]
     private List<GameObject> _inventory_R;
@@ -55,16 +61,18 @@ public class PlayerManager : MonoBehaviour
 
         if(_main == PlayerMains[0])
         {
+            input.gameObject.name = "Player_R";
             _main.Id = 0;
         }
 
         else
         {
+            input.gameObject.name = "Player_B";
             _main.Id = 1;
         }
 
         input.gameObject.transform.position = _playerPositions[_main.Id].transform.position;
-        input.GetComponent<MeshRenderer>().material.color = _playerColors[_main.Id];
+        input.GetComponent<MeshRenderer>().material.color = PlayerColors[_main.Id];
     }
 }
 
