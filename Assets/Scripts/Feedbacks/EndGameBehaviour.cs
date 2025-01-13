@@ -29,19 +29,22 @@ public class EndGameBehaviour : MonoBehaviour
         {
             _endGame = true;
             _endPanel.gameObject.SetActive(true);
-            _endRect.DOBlendableScaleBy(Vector3.one, 0.5f).SetEase(Ease.OutBounce).SetUpdate(true);
-
-            switch (id)
+            _endPanel.transform.DOBlendableLocalMoveBy(Vector3.zero, 1.25f).SetUpdate(true).onComplete += () =>
             {
-                case 0:
-                    _endPanel.color = PlayerManager.Instance.PlayerColors[1];
-                    _finalWinnerDisplay.text = "Blue player won !";
-                    break;
-                case 1:
-                    _endPanel.color = PlayerManager.Instance.PlayerColors[0];
-                    _finalWinnerDisplay.text = "Red player won !";
-                    break;
-            }
+                Time.timeScale = 0f;
+                _endRect.DOBlendableScaleBy(Vector3.one, 0.5f).SetEase(Ease.OutBounce).SetUpdate(true);
+                switch (id)
+                {
+                    case 0:
+                        _endPanel.color = PlayerManager.Instance.PlayerColors[1];
+                        _finalWinnerDisplay.text = "Blue player won !";
+                        break;
+                    case 1:
+                        _endPanel.color = PlayerManager.Instance.PlayerColors[0];
+                        _finalWinnerDisplay.text = "Red player won !";
+                        break;
+                }
+            };
         }
     }
 }

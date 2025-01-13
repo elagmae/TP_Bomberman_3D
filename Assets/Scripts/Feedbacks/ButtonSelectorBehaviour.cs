@@ -10,6 +10,5 @@ public class ButtonSelectorBehaviour : MonoBehaviour
     private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(_firstSelected.gameObject);
-        Time.timeScale = 0f;
     }
 }
