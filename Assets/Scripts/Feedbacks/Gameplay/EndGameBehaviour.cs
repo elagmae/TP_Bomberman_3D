@@ -31,7 +31,6 @@ public class EndGameBehaviour : MonoBehaviour
             _endPanel.gameObject.SetActive(true);
             _endPanel.transform.DOBlendableLocalMoveBy(Vector3.zero, 1.25f).SetUpdate(true).onComplete += () =>
             {
-                Time.timeScale = 0f;
                 _endRect.DOBlendableScaleBy(Vector3.one, 0.5f).SetEase(Ease.OutBounce).SetUpdate(true);
                 switch (id)
                 {
@@ -44,6 +43,8 @@ public class EndGameBehaviour : MonoBehaviour
                         _finalWinnerDisplay.text = "Red player won !";
                         break;
                 }
+
+                PlayerManager.Instance.enabled = false;
             };
         }
     }
