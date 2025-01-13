@@ -2,12 +2,15 @@ using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
+    [field: SerializeField]
+    public VolumeProfile Volume { get; set; }
     [field: SerializeField]
     public CinemachineImpulseSource ImpulseSource { get; set; }
     [field: SerializeField]
