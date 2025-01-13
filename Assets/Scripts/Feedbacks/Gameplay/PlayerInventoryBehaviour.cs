@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerInventoryBehaviour : MonoBehaviour
 {
-    public List<GameObject> BombInventory { get; set; } = new();
+    public List<BombPickupObject> BombInventory { get; set; } = new();
     private PlayerBombDetection _bombDetect;
     private PlayerBombActivation _bombActivation;
 
@@ -17,7 +17,7 @@ public class PlayerInventoryBehaviour : MonoBehaviour
         _bombActivation = GetComponent<PlayerBombActivation>();
         _bombActivation.OnBombActivation += Remove;
     }
-    public void Add(int id, GameObject bomb)
+    public void Add(int id, BombPickupObject bomb)
     {
         var inventory = PlayerManager.Instance.InventoriesUI[id];
 
@@ -29,11 +29,9 @@ public class PlayerInventoryBehaviour : MonoBehaviour
                 item.transform.localScale = Vector3.zero;
                 item.SetActive(true);
                 item.transform.DOBlendableScaleBy(Vector3.one, 0.5f).SetEase(Ease.InBounce);
-                bomb.SetActive(false);
-
+                
                 // Explosion de la bombe.
-                // Lyta sort la bombe de la pool stp.
-
+                ObjectPoolManager.Instance.Unpool("bomb_pickup", bomb);
                 return;
             }
         }
@@ -47,18 +45,15 @@ public class PlayerInventoryBehaviour : MonoBehaviour
             if (item.activeInHierarchy && item.transform.localScale == Vector3.one)
             {
                 var bomb = BombInventory[^1];
-                bomb.tag = "ActivatedBomb";
-                bomb.SetActive(true);
-                bomb.transform.position = this.transform.position;
-
                 item.transform.DOBlendableScaleBy(Vector3.one * -1, 0.5f).SetEase(Ease.OutBounce).onComplete += () =>
                 {
                     item.SetActive(false);
                 };
-
                 BombInventory.Remove(bomb);
 
-                //Lyta remet dans la pool stp.
+                var actBomb = ObjectPoolManager.Instance.Pool("bomb_explosion");
+                actBomb.gameObject.transform.position = transform.position;
+                
                 return;
             }
         }

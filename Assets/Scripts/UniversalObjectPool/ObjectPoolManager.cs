@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 //TODO: A custom property drawer for those dictionnary
 public class ObjectPoolManager : MonoBehaviour
@@ -17,7 +15,7 @@ public class ObjectPoolManager : MonoBehaviour
     /// because the type check is used at instanciation and pooling
     /// </summary>
     [Tooltip("The name of the type and the number max of instance of that type")]
-    [SerializeField] private SerializedDictionary<string, int> _maxValue;
+    [SerializeField] private IntDictionnary _maxValue;
     
     /// <summary>
     /// A dictionnary containing the type of the IPoolable object and a prefab/gameobject to instanciate
@@ -26,7 +24,7 @@ public class ObjectPoolManager : MonoBehaviour
     /// because the type check is used at instanciation and pooling
     /// </summary>
     [Tooltip("The name of the type and the prefab of that type")]
-    [SerializeField] private SerializedDictionary<string, GameObject> _prefabPool;
+    [SerializeField] private ObjectDictionnary _prefabPool;
     
     /// <summary>
     /// The current number of each type in the pool actually (both instanciated and dormant)
@@ -116,9 +114,14 @@ public class ObjectPoolManager : MonoBehaviour
     /// Store an object into the pool
     /// </summary>
     /// <param name="pooledObject"> The object to store </param>
-    public void Unpool(IPoolable pooledObject, string itemType)
+    public void Unpool(string T, IPoolable pooledObject)
     {
         pooledObject.gameObject.SetActive(false);
-        _pool[itemType].Add(pooledObject);
+        if (!_pool.ContainsKey(T))
+        {
+            _pool.Add(T, new List<IPoolable>());
+        }
+        _pool[T].Add(pooledObject);
+        pooledObject.OnUnPooled();
     }
 }

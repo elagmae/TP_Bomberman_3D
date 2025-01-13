@@ -9,8 +9,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     private PlayerInput _player;
 
+    [SerializeField]
+    private bool _isAI;
+
     private void Awake()
     {
+        if (_isAI) return;
         _player = GetComponent<PlayerInput>();
         _player.onActionTriggered += OnInput;
     }

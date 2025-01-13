@@ -1,5 +1,6 @@
 using Cinemachine;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -33,6 +34,12 @@ public class PlayerManager : MonoBehaviour
     private PlayerMain _main;
     private PlayerInputManager _inputManager;
 
+    [SerializeField]
+    private bool _isPvE;
+
+    [SerializeField, ShowIf("_isPvE")] private PlayerMain _playerCharacter;
+    [SerializeField, ShowIf("_isPvE")] private PlayerMain _aiCharacter;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -41,16 +48,31 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        else
-        {
-            Instance = this;
-        }
+        Instance = this;
     }
 
     private void Start()
     {
-        _inputManager = GetComponent<PlayerInputManager>();
-        _inputManager.onPlayerJoined += Join;
+        if(!_isPvE){
+            _inputManager = GetComponent<PlayerInputManager>();
+            _inputManager.onPlayerJoined += Join;
+        }
+        else
+        {
+            PlayerMains.Add(_playerCharacter);
+            PlayerMains.Add(_aiCharacter);
+            
+            _playerCharacter.gameObject.name = "Player_R";
+            _playerCharacter.Id = 0;
+            _aiCharacter.gameObject.name = "Player_B";
+            _aiCharacter.Id = 1;
+            
+            _playerCharacter.transform.position = _playerPositions[0].transform.position;
+            _aiCharacter.transform.position = _playerPositions[1].transform.position;
+            
+            _playerCharacter.GetComponent<MeshRenderer>().material.color = PlayerColors[0];
+            _aiCharacter.GetComponent<MeshRenderer>().material.color = PlayerColors[1];
+        }
 
         InventoriesUI.Clear();
         InventoriesUI.Add(_inventory_R);

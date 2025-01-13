@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerBombDetection : MonoBehaviour
 {
-    public event Action<int, GameObject> OnBombDetection;
+    public event Action<int, BombPickupObject> OnBombDetection;
     private PlayerInventoryBehaviour _inventory;
     private PlayerMain _main;
 
@@ -17,7 +17,7 @@ public class PlayerBombDetection : MonoBehaviour
     {
         if (other.CompareTag("Bomb"))
         {
-            var bomb = other.gameObject;
+            var bomb = other.GetComponent<BombPickupObject>();
             OnBombDetection?.Invoke(_main.Id, bomb);
         }
     }

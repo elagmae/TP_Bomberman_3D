@@ -17,7 +17,7 @@ public class AIStateChase : AIStateBase
     {
         if (type == UpdateType.NORMAL)
         {
-            _machine.Agent.destination = new Vector3(0, 0, 0); // TODO: Replace by player position
+            _machine.Agent.destination = PlayerManager.Instance.PlayerMains[0].transform.position; // TODO: Replace by player position
         }
     }
 
