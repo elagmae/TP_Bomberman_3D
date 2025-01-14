@@ -1,10 +1,12 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerInventoryBehaviour : MonoBehaviour
 {
+    public event Action<GameObject> OnItemAdded;
+    public event Action<GameObject> OnItemRemoved;
     public List<BombPickupObject> BombInventory { get; set; } = new();
     private PlayerBombDetection _bombDetect;
     private PlayerBombActivation _bombActivation;
@@ -26,9 +28,7 @@ public class PlayerInventoryBehaviour : MonoBehaviour
             if (!item.activeInHierarchy)
             {
                 BombInventory.Add(bomb);
-                item.transform.localScale = Vector3.zero;
-                item.SetActive(true);
-                item.transform.DOBlendableScaleBy(Vector3.one, 0.5f).SetEase(Ease.InBounce);
+                OnItemAdded?.Invoke(item);
                 
                 // Explosion de la bombe.
                 ObjectPoolManager.Instance.Unpool("bomb_pickup", bomb);
@@ -45,10 +45,7 @@ public class PlayerInventoryBehaviour : MonoBehaviour
             if (item.activeInHierarchy && item.transform.localScale == Vector3.one)
             {
                 var bomb = BombInventory[^1];
-                item.transform.DOBlendableScaleBy(Vector3.one * -1, 0.5f).SetEase(Ease.OutBounce).onComplete += () =>
-                {
-                    item.SetActive(false);
-                };
+                OnItemRemoved?.Invoke(item);
                 BombInventory.Remove(bomb);
 
                 var actBomb = ObjectPoolManager.Instance.Pool("bomb_explosion");

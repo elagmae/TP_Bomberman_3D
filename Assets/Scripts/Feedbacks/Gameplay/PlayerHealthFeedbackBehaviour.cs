@@ -42,7 +42,7 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
 
         if (PlayerManager.Instance.Volume.TryGet(out _chromatic))
         {
-            DOTween.To(() => _chromatic.intensity.value, x => _chromatic.intensity.value = x, 0.2f, 0.3f).SetUpdate(true).onComplete += () =>
+            DOTween.To(() => _chromatic.intensity.value, x => _chromatic.intensity.value = x, 0.35f, 0.3f).SetUpdate(true).onComplete += () =>
             {
                 DOTween.To(() => _chromatic.intensity.value, x => _chromatic.intensity.value = x, 0f, 0.3f);
             };
