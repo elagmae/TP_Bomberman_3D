@@ -608,11 +608,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxValue:
-    m_Keys: []
-    m_Values: 
+    keys: []
+    values: 
   _prefabPool:
-    m_Keys: []
-    m_Values: []
+    keys: []
+    values: []
 --- !u!1 &924058943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,6 +1018,9 @@ MonoBehaviour:
   - {fileID: 5313867964647038250}
   - {fileID: 3839764115214837778}
   - {fileID: 8872145695298146818}
+  _isPvE: 0
+  _playerCharacter: {fileID: 0}
+  _aiCharacter: {fileID: 0}
 --- !u!1 &1543862260
 GameObject:
   m_ObjectHideFlags: 0
