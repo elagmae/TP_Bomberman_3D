@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -15,12 +14,11 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
     private void Start()
     {
         _healthBehaviour = GetComponent<PlayerHealthBehaviour>();
-        _healthBehaviour.OnHealthChange += HealthFeedback;
+        _healthBehaviour.OnHealthChange += HealthFeedback;;
     }
 
     public void HealthFeedback(int health, int id)
     {
-
         if (_animator == null)
         {
             _animator = PlayerManager.Instance.PlayerHealthSliders[id].gameObject.GetComponent<Animator>();
@@ -48,10 +46,15 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
             };
         }
 
-        if (health <= 0)
+        if(health > 0 && health < 2)
         {
-            OnGameFinished?.Invoke(id);
+            _animator.SetTrigger("Flash");
         }
 
+        if (health <= 0)
+        {
+            PlayerManager.Instance.PlayerMains[id].DeathPart.Play();
+            OnGameFinished?.Invoke(id);
+        }
     }
 }

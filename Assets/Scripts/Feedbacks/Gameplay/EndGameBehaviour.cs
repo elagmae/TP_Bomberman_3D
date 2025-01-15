@@ -27,6 +27,7 @@ public class EndGameBehaviour : MonoBehaviour
     {
         if (!_endGame)
         {
+            Time.timeScale = 1f;
             _endGame = true;
             _endPanel.gameObject.SetActive(true);
             _endPanel.transform.DOBlendableLocalMoveBy(Vector3.zero, 1.25f).SetUpdate(true).onComplete += () =>

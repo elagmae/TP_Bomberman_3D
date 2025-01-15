@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,11 +8,14 @@ public class PlayerMain : MonoBehaviour
     public int Health { get; set; }
     public Rigidbody Rb { get; set; }
     public PlayerInput PlayerInput { get; set; }
+    public ParticleSystem DeathPart { get; set; }
     public PlayerInputHandler PlayerInputHandler { get; set; }
     public PlayerHealthBehaviour PlayerHealthBehaviour { get; set; }
     public MeshRenderer Render { get; set; }
     public Material Material { get; set; }
+    public Animator Animator { get; set; }
     public int Id { get; set; } = 0;
+    private ParticleSystem.MainModule _main;
 
     private void Awake()
     {
@@ -21,5 +25,9 @@ public class PlayerMain : MonoBehaviour
         PlayerHealthBehaviour = GetComponent<PlayerHealthBehaviour>();
         Render = GetComponent<MeshRenderer>();
         Material = Render.material;
+        Animator = GetComponent<Animator>();
+        DeathPart = GetComponentInChildren<ParticleSystem>();
+        _main = DeathPart.main;
+        _main.startColor = new ParticleSystem.MinMaxGradient(Material.color, Color.black);
     }
 }
