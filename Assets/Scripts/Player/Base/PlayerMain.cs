@@ -8,7 +8,10 @@ public class PlayerMain : MonoBehaviour
     public int Health { get; set; }
     public Rigidbody Rb { get; set; }
     public PlayerInput PlayerInput { get; set; }
+    [field:SerializeField]
     public ParticleSystem DeathPart { get; set; }
+    [field: SerializeField]
+    public ParticleSystem HitPart { get; set; }
     public PlayerInputHandler PlayerInputHandler { get; set; }
     public PlayerHealthBehaviour PlayerHealthBehaviour { get; set; }
     public PlayerInventoryBehaviour PlayerInventoryBehaviour { get; set; }
@@ -16,7 +19,9 @@ public class PlayerMain : MonoBehaviour
     public Material Material { get; set; }
     public Animator Animator { get; set; }
     public int Id { get; set; } = 0;
-    private ParticleSystem.MainModule _main;
+
+    private ParticleSystem.MainModule _mainDeath;
+    private ParticleSystem.MainModule _mainHit;
 
     private void Awake()
     {
@@ -28,8 +33,11 @@ public class PlayerMain : MonoBehaviour
         Render = GetComponent<MeshRenderer>();
         Material = Render.material;
         Animator = GetComponent<Animator>();
-        DeathPart = GetComponentInChildren<ParticleSystem>();
-        _main = DeathPart.main;
-        _main.startColor = new ParticleSystem.MinMaxGradient(Material.color, Color.black);
+
+        _mainDeath = DeathPart.main;
+        _mainDeath.startColor = new ParticleSystem.MinMaxGradient(Material.color, Color.black);
+
+        _mainHit = HitPart.main;
+        _mainHit.startColor = new ParticleSystem.MinMaxGradient(Material.color, Color.black);
     }
 }

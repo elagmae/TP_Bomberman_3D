@@ -25,6 +25,7 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
         }
 
         _animator.SetTrigger("Shake");
+        PlayerManager.Instance.PlayerMains[id].HitPart.Play();
 
         PlayerManager.Instance.PlayerHealthSliders[id].DOValue(health, 0.1f);
 
@@ -54,7 +55,13 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
         if (health <= 0)
         {
             PlayerManager.Instance.PlayerMains[id].DeathPart.Play();
-            OnGameFinished?.Invoke(id);
+            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0.1f, 1f).SetUpdate(true).onComplete += () =>
+            {
+                DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, 0.25f).SetUpdate(true).onComplete += () =>
+                {
+                    OnGameFinished?.Invoke(id);
+                };
+            };
         }
     }
 }

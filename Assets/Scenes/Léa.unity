@@ -158,6 +158,12 @@ Transform:
   - {fileID: 656195713}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &209547698 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5515172559821995353, guid: 36de5ea0fd018a24b8812e309af97eb6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4401911171336089380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &229782078
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,12 +748,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!20 &1120053454 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1674812084009155111, guid: 36de5ea0fd018a24b8812e309af97eb6,
-    type: 3}
-  m_PrefabInstance: {fileID: 4401911171336089380}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1120053458 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7142098458352602346, guid: 36de5ea0fd018a24b8812e309af97eb6,
@@ -1505,11 +1505,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2449454218859190018, guid: 80d6da14878d39744bae795d1c99b4d6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3766630311805026137, guid: 80d6da14878d39744bae795d1c99b4d6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1539,7 +1534,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 1120053454}
+      objectReference: {fileID: 209547698}
+    - target: {fileID: 8288588908574264631, guid: 80d6da14878d39744bae795d1c99b4d6,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
