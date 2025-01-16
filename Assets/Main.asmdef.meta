@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Main.asmdef.meta
 guid: fce3e1b56f5907d4695cfdcc6ce92a41
 AssemblyDefinitionImporter:
+========
+guid: be50d0399ecf75a4e8927f4a1508f107
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> 193be3f (added custom inspector for player manager):Assets/Textures.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
