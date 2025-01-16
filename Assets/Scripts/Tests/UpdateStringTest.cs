@@ -5,7 +5,7 @@ using UnityEngine;
 public class UpdateStringTest
 {
     [Test]
-    public void NewTestScriptSimplePasses()
+    public void TestStringUpdate()
     {
         GameObject obj = new ();
         StringUpdate stringUpdate = obj.AddComponent<StringUpdate>();
