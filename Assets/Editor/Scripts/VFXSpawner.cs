@@ -1,21 +1,18 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Editor.Scripts
+public class VFXSpawner : EditorWindow
 {
-    public class VFXSpawner : EditorWindow
+    [MenuItem("MENUITEM/MENUITEMCOMMAND")]
+    private static void ShowWindow()
     {
-        [MenuItem("MENUITEM/MENUITEMCOMMAND")]
-        private static void ShowWindow()
-        {
-            var window = GetWindow<VFXSpawner>();
-            window.titleContent = new GUIContent("TITLE");
-            window.Show();
-        }
+        var window = GetWindow<VFXSpawner>();
+        window.titleContent = new GUIContent("TITLE");
+        window.Show();
+    }
 
-        private void CreateGUI()
-        {
+    private void CreateGUI()
+    {
             
-        }
     }
 }
