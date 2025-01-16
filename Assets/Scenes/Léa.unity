@@ -609,11 +609,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxValue:
-    keys: []
-    values: 
+    keys:
+    - bomb_pickup
+    - bomb_explosion
+    values: c8000000c8000000
   _prefabPool:
-    keys: []
-    values: []
+    keys:
+    - bomb_pickup
+    - bomb_explosion
+    values:
+    - {fileID: 5170337348556232573, guid: c3abf5df9c4a1924b96db17f57338343, type: 3}
+    - {fileID: 5170337348556232573, guid: 552fba9a60d071841939de450ba9af82, type: 3}
 --- !u!1 &924058943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,6 +1504,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449454218859190018, guid: 80d6da14878d39744bae795d1c99b4d6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3766630311805026137, guid: 80d6da14878d39744bae795d1c99b4d6,
         type: 3}
