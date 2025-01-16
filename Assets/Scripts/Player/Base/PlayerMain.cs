@@ -11,6 +11,7 @@ public class PlayerMain : MonoBehaviour
     public ParticleSystem DeathPart { get; set; }
     public PlayerInputHandler PlayerInputHandler { get; set; }
     public PlayerHealthBehaviour PlayerHealthBehaviour { get; set; }
+    public PlayerInventoryBehaviour PlayerInventoryBehaviour { get; set; }
     public MeshRenderer Render { get; set; }
     public Material Material { get; set; }
     public Animator Animator { get; set; }
@@ -23,6 +24,7 @@ public class PlayerMain : MonoBehaviour
         PlayerInput = GetComponent<PlayerInput>();
         PlayerInputHandler = GetComponent<PlayerInputHandler>();
         PlayerHealthBehaviour = GetComponent<PlayerHealthBehaviour>();
+        PlayerInventoryBehaviour = GetComponent<PlayerInventoryBehaviour>();
         Render = GetComponent<MeshRenderer>();
         Material = Render.material;
         Animator = GetComponent<Animator>();

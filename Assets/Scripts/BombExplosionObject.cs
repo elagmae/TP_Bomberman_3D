@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace DefaultNamespace
 {
     public class BombExplosionObject : MonoBehaviour, IPoolable
     {
+        private bool[] _playerTouched = new bool[2];
+        public event Action<Vector3> OnExplode;
+        
         public void RegisterType()
         {
             throw new System.NotImplementedException();
@@ -12,6 +16,9 @@ namespace DefaultNamespace
 
         public void OnPooled(string tag)
         {
+            transform.position = new Vector3(Mathf.Round(transform.position.x), transform.position.y, Mathf.Round(transform.position.z));
+            _playerTouched = new bool[2] {false, false};
+            
             StartCoroutine(BombExplosionRoutine());
         }
 
@@ -23,20 +30,38 @@ namespace DefaultNamespace
             var players = PlayerManager.Instance.PlayerMains.ConvertAll((pm) => pm.gameObject);
 
             var directions = new []{ Vector3.forward, Vector3.back, Vector3.left, Vector3.right };
-            
-            foreach(var direction in directions)
+
+            foreach (var direction in directions)
             {
-                if (Physics.Raycast(transform.position, direction, out RaycastHit hit, 3f))
+                for (int i = 0; i < 3; i++)
                 {
-                    if(players.Contains(hit.transform.gameObject))
+                    var center = transform.position + direction * (i*2);
+                    CustomDebug.DrawSphere(center, 1.5f, Color.red, 3f);
+                    var hits = Physics.SphereCastAll(center, 1.5f, direction, 1.5f);
+                    
+                    OnExplode?.Invoke(center);
+                    
+                    bool wallHit = false;
+                    foreach (var hit in hits)
                     {
-                        PlayerManager.Instance
-                            .PlayerMains[players.IndexOf(hit.transform.gameObject)]
-                            .PlayerHealthBehaviour
-                            .LooseHealth();
+                        if (players.Contains(hit.transform.gameObject) && !_playerTouched[players.IndexOf(hit.transform.gameObject)])
+                        {
+                            _playerTouched[players.IndexOf(hit.transform.gameObject)] = true;
+                            PlayerManager.Instance
+                                .PlayerMains[players.IndexOf(hit.transform.gameObject)]
+                                .PlayerHealthBehaviour
+                                .LooseHealth();
+                            
+                            wallHit = true;
+                        }
+                        else if (hit.transform.CompareTag("Wall"))
+                        {
+                            wallHit = true;
+                        }
                     }
+
+                    if (wallHit) break;
                 }
-                
             }
 
             yield return null;
