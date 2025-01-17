@@ -9,6 +9,9 @@ namespace DefaultNamespace
         private bool[] _playerTouched = new bool[2];
         public event Action<Vector3> OnExplode;
         
+        [SerializeField]
+        private Animator _animator;
+        
         public void RegisterType()
         {
             throw new System.NotImplementedException();
@@ -18,6 +21,8 @@ namespace DefaultNamespace
         {
             transform.position = new Vector3(Mathf.Round(transform.position.x), transform.position.y, Mathf.Round(transform.position.z));
             _playerTouched = new bool[2] {false, false};
+            
+            _animator.Play("BombExplosion");
             
             StartCoroutine(BombExplosionRoutine());
         }
@@ -54,7 +59,11 @@ namespace DefaultNamespace
                             
                             wallHit = true;
                         }
-                        else if (hit.transform.CompareTag("Wall"))
+                    }
+
+                    if (Physics.Raycast(center, direction, out RaycastHit hitWall, 2.0f))
+                    {
+                        if (hitWall.collider.CompareTag("Wall"))
                         {
                             wallHit = true;
                         }

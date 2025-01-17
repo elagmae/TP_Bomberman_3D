@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class BombVFX : MonoBehaviour, IPoolable
@@ -7,6 +8,9 @@ public class BombVFX : MonoBehaviour, IPoolable
     [SerializeField]
     private List<ParticleSystem> _ps;
 
+    [SerializeField]
+    private Light _light;
+    
     private List<bool> _isCancelled;
     
     public void RegisterType()
@@ -19,6 +23,9 @@ public class BombVFX : MonoBehaviour, IPoolable
         {
             p.Play();
         }
+
+        _light.intensity = 100000;
+        _light.DOIntensity(0, 0.5f);
     }
 
     private void Update()
