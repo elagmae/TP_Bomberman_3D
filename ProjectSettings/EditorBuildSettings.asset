@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/L\xE9a.unity"
     guid: c87d7f07cb9b49449be911c7d04f23a6
+  - enabled: 1
+    path: Assets/Scenes/PvE.unity
+    guid: a97c9ab39acf6724c98ce0ad6606b87a
+  - enabled: 1
+    path: Assets/Scenes/Léa.unity
+    guid: c87d7f07cb9b49449be911c7d04f23a6
   m_configObjects: {}
