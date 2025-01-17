@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Agent>k__BackingField: {fileID: 4569261639614649145}
-  _defaultState: AIStateChase
+  _defaultState: AIStatePickup
 --- !u!195 &4569261639614649145
 NavMeshAgent:
   m_ObjectHideFlags: 0

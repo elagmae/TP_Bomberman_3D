@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
+    private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
     [field: SerializeField]
     public VolumeProfile Volume { get; set; }
@@ -72,6 +73,9 @@ public class PlayerManager : MonoBehaviour
             
             _playerCharacter.GetComponent<MeshRenderer>().material.color = PlayerColors[0];
             _aiCharacter.GetComponent<MeshRenderer>().material.color = PlayerColors[1];
+            
+            _playerCharacter.GetComponent<MeshRenderer>().material.SetColor(EmissionColor, PlayerColors[0]);
+            _aiCharacter.GetComponent<MeshRenderer>().material.SetColor(EmissionColor, PlayerColors[1]);
         }
 
         InventoriesUI.Clear();
@@ -98,6 +102,7 @@ public class PlayerManager : MonoBehaviour
 
         input.gameObject.transform.position = _playerPositions[_main.Id].transform.position;
         input.GetComponent<MeshRenderer>().material.color = PlayerColors[_main.Id];
+        input.GetComponent<MeshRenderer>().material.SetColor(EmissionColor, PlayerColors[_main.Id]);
     }
 }
 
