@@ -20,6 +20,8 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
 
     public void HealthFeedback(int health, int id)
     {
+        VibrationsBehaviour.Vibrate(10f, 0.5f);
+
         if (_animator == null)
         {
             _animator = PlayerManager.Instance.PlayerHealthSliders[id].gameObject.GetComponent<Animator>();
