@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{4ec17199-d780-4d43-8f4f-35b3ccf53908}">
+		<property name="name">
+			<value>PlayerAdvantage</value>
+		</property>
+		<relationship name="folder">
+			<destination>{8abea94e-4e92-4e37-9a6a-db17cfcdb66f}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{267b9e16-3a0b-4262-98df-fb55f1b636ee}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{267b9e16-3a0b-4262-98df-fb55f1b636ee}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0.5</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>
