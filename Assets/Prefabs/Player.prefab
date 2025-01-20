@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b6d13016b60e84196ca387cdedc86c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _endVfxMat: {fileID: 2100000, guid: 84aabd841611f4f4c9f2df3d0b770707, type: 2}
 --- !u!95 &4588594398785387023
 Animator:
   serializedVersion: 5

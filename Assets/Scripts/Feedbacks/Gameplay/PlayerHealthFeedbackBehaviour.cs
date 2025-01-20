@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -14,7 +15,7 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
     private void Start()
     {
         _healthBehaviour = GetComponent<PlayerHealthBehaviour>();
-        _healthBehaviour.OnHealthChange += HealthFeedback;;
+        _healthBehaviour.OnHealthChange += HealthFeedback;
     }
 
     public void HealthFeedback(int health, int id)
@@ -55,13 +56,20 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
         if (health <= 0)
         {
             PlayerManager.Instance.PlayerMains[id].DeathPart.Play();
-            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0.1f, 1f).SetUpdate(true).onComplete += () =>
-            {
-                DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, 0.25f).SetUpdate(true).onComplete += () =>
-                {
-                    OnGameFinished?.Invoke(id);
-                };
-            };
+            StartCoroutine(Die(id));
         }
+    }
+
+    public IEnumerator Die(int id)
+    {
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 0f;
+        yield return new WaitForEndOfFrame();
+        Time.timeScale = 0.2f;
+
+        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, 0.25f).SetDelay(0.6f).SetUpdate(true).onComplete += () =>
+        {
+            OnGameFinished?.Invoke(id);
+        };
     }
 }
