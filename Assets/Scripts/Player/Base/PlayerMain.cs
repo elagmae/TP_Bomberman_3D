@@ -33,7 +33,10 @@ public class PlayerMain : MonoBehaviour
         Render = GetComponent<MeshRenderer>();
         Material = Render.material;
         Animator = GetComponent<Animator>();
+    }
 
+    private void Start()
+    {
         _mainDeath = DeathPart.main;
         _mainDeath.startColor = new ParticleSystem.MinMaxGradient(Material.color, Color.black);
 

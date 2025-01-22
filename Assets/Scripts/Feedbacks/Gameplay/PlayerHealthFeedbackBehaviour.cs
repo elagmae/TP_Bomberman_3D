@@ -68,6 +68,7 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
         Time.timeScale = 0f;
         yield return new WaitForEndOfFrame();
         Time.timeScale = 0.2f;
+        PlayerManager.Instance.PlayerMains[id].Render.enabled = false;
 
         DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, 0.25f).SetDelay(0.6f).SetUpdate(true).onComplete += () =>
         {

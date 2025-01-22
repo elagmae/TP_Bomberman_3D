@@ -37,6 +37,7 @@ public class EndGameBehaviour : MonoBehaviour
             _endPanel.gameObject.SetActive(true);
             _endPanel.transform.DOBlendableLocalMoveBy(Vector3.zero, 1.25f).SetUpdate(true).onComplete += () =>
             {
+                Cursor.visible = true;
                 _endRect.DOBlendableScaleBy(Vector3.one, 0.5f).SetEase(Ease.OutBounce).SetUpdate(true);
                 switch (id)
                 {
