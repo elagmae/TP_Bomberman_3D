@@ -1,6 +1,6 @@
 using DG.Tweening;
 using System;
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -20,6 +20,7 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
 
     public void HealthFeedback(int health, int id)
     {
+        VibrationsBehaviour.Vibrate(10f, 0.5f);
 
         if (_animator == null)
         {
@@ -27,6 +28,7 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
         }
 
         _animator.SetTrigger("Shake");
+        PlayerManager.Instance.PlayerMains[id].HitPart.Play();
 
         PlayerManager.Instance.PlayerHealthSliders[id].DOValue(health, 0.1f);
 
@@ -48,10 +50,29 @@ public class PlayerHealthFeedbackBehaviour : MonoBehaviour
             };
         }
 
-        if (health <= 0)
+        if(health > 0 && health < 2)
         {
-            OnGameFinished?.Invoke(id);
+            _animator.SetTrigger("Flash");
         }
 
+        if (health <= 0)
+        {
+            PlayerManager.Instance.PlayerMains[id].DeathPart.Play();
+            StartCoroutine(Die(id));
+        }
+    }
+
+    public IEnumerator Die(int id)
+    {
+        yield return new WaitForSeconds(0.1f);
+        Time.timeScale = 0f;
+        yield return new WaitForEndOfFrame();
+        Time.timeScale = 0.2f;
+        PlayerManager.Instance.PlayerMains[id].Render.enabled = false;
+
+        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, 0.25f).SetDelay(0.6f).SetUpdate(true).onComplete += () =>
+        {
+            OnGameFinished?.Invoke(id);
+        };
     }
 }

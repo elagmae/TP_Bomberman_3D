@@ -30,7 +30,6 @@ public class PlayerInventoryBehaviour : MonoBehaviour
                 BombInventory.Add(bomb);
                 OnItemAdded?.Invoke(item);
                 
-                // Explosion de la bombe.
                 ObjectPoolManager.Instance.Unpool("bomb_pickup", bomb);
                 return;
             }

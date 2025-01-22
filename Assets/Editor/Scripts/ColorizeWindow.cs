@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ColorizeWindow : EditorWindow
 {
     public GameObject Source;
-    public static Color Color;
+    public Color Color;
 
     [MenuItem("Window/Colorizer Window")]
     public static void ShowWindow()
@@ -29,21 +29,30 @@ public class ColorizeWindow : EditorWindow
 
             foreach (GameObject obj in Selection.gameObjects)
             {
-                if (obj.GetComponent<MeshRenderer>() != null)
-                {
-                    obj.GetComponent<MeshRenderer>().material.color = Color;
-                }
-
-                if(obj.GetComponent<Image>() != null)
-                {
-                    obj.GetComponent <Image>().color = Color;
-                }
-
-                if(obj.GetComponent<SpriteRenderer>() != null)
-                {
-                    obj.GetComponent<SpriteRenderer>().color = Color;
-                }
+                ChangeColor(Color, obj);
             }
         }
+    }
+
+    public Color ChangeColor(Color color, GameObject obj)
+    {
+        var objColor = Color.black;
+
+        if (obj.GetComponent<MeshRenderer>() != null)
+        {
+            objColor = obj.GetComponent<MeshRenderer>().material.color = color;
+        }
+
+        if (obj.GetComponent<Image>() != null)
+        {
+            objColor = obj.GetComponent<Image>().color = color;
+        }
+
+        if (obj.GetComponent<SpriteRenderer>() != null)
+        {
+            objColor = obj.GetComponent<SpriteRenderer>().color = color;
+        }
+
+        return objColor;
     }
 }

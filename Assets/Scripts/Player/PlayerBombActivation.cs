@@ -19,7 +19,7 @@ public class PlayerBombActivation : MonoBehaviour
 
     public void ActivateBomb(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed || ctx.action == null)
         {
             OnBombActivation?.Invoke(_main.Id);
         }

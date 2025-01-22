@@ -17,7 +17,12 @@ public class AIStateChase : AIStateBase
     {
         if (type == UpdateType.NORMAL)
         {
-            _machine.Agent.destination = PlayerManager.Instance.PlayerMains[0].transform.position; // TODO: Replace by player position
+            _machine.Agent.destination = PlayerManager.Instance.PlayerMains[0].transform.position;
+            
+            if (Vector3.Distance(PlayerManager.Instance.PlayerMains[0].transform.position, _machine.transform.position) < 1.35f)
+            {
+                _machine.TransitionToState(States.BOMB);
+            }
         }
     }
 

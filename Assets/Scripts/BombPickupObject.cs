@@ -6,7 +6,6 @@ public class BombPickupObject : MonoBehaviour, IPoolable
 {
     public void RegisterType()
     {
-        throw new System.NotImplementedException();
     }
 
     public void OnPooled(string tag)
