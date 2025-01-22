@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{98333ea2-080a-4d83-8a42-40f2b2cac9ed}">
+		<property name="assetPath">
+			<value>ingame_red_1.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>42.666666666666664</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{02ea8f53-cf5d-4edc-bc58-288fa5f59f64}</destination>
+		</relationship>
+	</object>
+</objects>
